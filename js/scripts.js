@@ -24,10 +24,19 @@ let pokemonList = [
   // The following loop will write the name and height of all Pokemons on website DOM
   // The else loop checks if the height is above a 1.0 (big) value
 
-  for (let i=0; i<pokemonList.length; i++) {
-    if (pokemonList[i].height < 1.0) {
-      document.write(pokemonList[i].name + '(height:  '+ pokemonList[i].height +')' +'<br>');
-    } else {
-      document.write(pokemonList[i].name + '(height:  '+ pokemonList[i].height +')' + " - Wow, that's big!" +'<br>');
-    }
+  /*  for (let i=0; i<pokemonList.length; i++) {
+  if (pokemonList[i].height < 1.0) {
+  document.write('<p>'+pokemonList[i].name + '(height:  '+ pokemonList[i].height +')</p>');
+} else {
+document.write(pokemonList[i].name + '(height:  '+ pokemonList[i].height +')' + " - Wow, that's big!");
+}
+}*/
+//The following code uses 'forEach' function instead of 'for' loop to iterate the Pokemon in the pokemonList
+
+pokemonList.forEach((item) => {
+  if (item.height < 1.0) {
+    document.write('<p>'+item.name + '(height:  '+ item.height +')</p>');
+  } else {
+    document.write(item.name + '(height:  '+ item.height +')' + " - Wow, that's big!");
   }
+});
