@@ -1,1 +1,79 @@
+* {
+  box-sizing: border-box;
+}
 
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color:#f8f8ff;
+  color:inherit;
+  padding: 10px;
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+a {
+  color: #357b70;
+  background-color: inherit;
+}
+a:hover, a:focus{
+  text-decoration: none;
+}
+
+.page-header {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid lightgrey;
+}
+
+.page-header__item {
+  flex:0 1 200px;
+}
+
+.page-header__item:last-child {
+  flex-grow: 1;
+  text-align: right;
+}
+.navigation-list {
+  list-style-type: none;
+}
+
+.navigation-list li{
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.pokemon-list {
+  border: 1px solid grey;
+  width: 40%;
+  list-style-type: none;
+  margin: 0 auto;
+  background-color: lightgrey;
+  color: inherit;
+}
+#pokedex-title{
+  text-align: center;
+}
+.button-class {
+  width: 80%;
+  border: 1px solid green;
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+
+}
+.button-class:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
