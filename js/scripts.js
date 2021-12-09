@@ -1,50 +1,10 @@
 /*This project is to build a Pokédex application that displays a list of Pokémon and
 allows the user to view details for each of them*/
-/*let pokemonList = [
-{
-name: 'Wartortle',
-height: 1,
-types:['Water']},
-{
-name: 'Metapod',
-height: 0.7,
-types:['bug']
-},
-{
-name: 'Charmander',
-height: 0.6,
-types:['fire']
-},
-{
-name: 'Ghost',
-height: 0.5,
-types:['ghost']
-},
-];*/
-// The following loop will write the name and height of all Pokemons on website DOM
-// The else loop checks if the height is above a 1.0 (big) value
-
-/*  for (let i=0; i<pokemonList.length; i++) {
-if (pokemonList[i].height < 1.0) {
-document.write('<p>'+pokemonList[i].name + '(height:  '+ pokemonList[i].height +')</p>');
-} else {
-document.write(pokemonList[i].name + '(height:  '+ pokemonList[i].height +')' + " - Wow, that's big!");
-}
-}*/
-//The following code uses 'forEach' function instead of 'for' loop to iterate the Pokemon in the pokemonList
-
-/*pokemonList.forEach((item) => {
-if (item.height < 1.0) {
-document.write('<p>'+item.name + '(height:  '+ item.height +')</p>');
-} else {
-document.write(item.name + '(height:  '+ item.height +')' + " - Wow, that's big!");
-}
-});
-*/
 
 //The following code wraps the array(pokemonList) in an IIFE to avoid accidentally accessing the global state
 
 let pokemonRepository = (function () {
+  let modalContainer = document.querySelector('#modal-container');
   let pokemonList = [];
 
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
@@ -75,8 +35,8 @@ let pokemonRepository = (function () {
       showDetails(pokemon);
     });
   }
-// To load data from an external source
-// This fetchs or gets the complete list of pokemon from the link provided!
+  // To load data from an external source
+  // This fetchs or gets the complete list of pokemon from the link provided!
 
   function loadList() {
     return fetch(apiUrl).then(function (response) {
@@ -93,7 +53,7 @@ let pokemonRepository = (function () {
       console.error(e);
     })
   }
-// this gets pokemon details using the URL from pokemon object in the parameter!
+  // this loads/gets pokemon details using the URL from pokemon object in the parameter!
   function loadDetails(item) {
     let url = item.detailsUrl;
     return fetch(url).then(function (response) {
@@ -107,12 +67,67 @@ let pokemonRepository = (function () {
       console.error(e);
     });
   }
-// once the
+  // once the details are loaded, this funtion views details for selected data
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function(){
-      console.log(pokemon);
+      //  console.log(pokemon.name, pokemon.height, pokemon.img);
+      showModal(pokemon);
     });
   }
+
+  // adds modal to Pokemon app.
+
+  function showModal(pokemon) {
+    modalContainer.innerHTML = '';
+    modalContainer.classList.add('is-visible');
+
+    let modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    let closeButtonElement = document.createElement('button');
+    closeButtonElement.classList.add('modal-close');
+    closeButtonElement.innerText = 'Close';
+    closeButtonElement.addEventListener('click', hideModal);
+
+    let titleElement = document.createElement('h1');
+    titleElement.innerText = pokemon.name;
+
+    let contentElement = document.createElement('p');
+    contentElement.innerText = 'Height: ' + pokemon.height;
+
+    let imageElement = document.createElement('img');
+    imageElement.classList.add('img-class');
+    imageElement.src = pokemon.imageUrl;
+
+
+    modal.appendChild(closeButtonElement);
+    modal.appendChild(titleElement);
+    modal.appendChild(contentElement);
+    modal.appendChild(imageElement);
+    modalContainer.appendChild(modal);
+
+    modalContainer.classList.add('is-visible');
+
+  }
+  // removes modal up on close, esk or click outside of modal
+  function hideModal() {
+    modalContainer.classList.remove('is-visible');
+  }
+
+// remoces modal with ESC keydown
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')){
+      hideModal();
+    }
+  });
+
+// removes the modal when clicked outside modal
+  modalContainer.addEventListener('click', (e) => {
+    let target = e.target;
+    if (target === modalContainer){
+      hideModal();
+    }
+  });
 
   return {
     getAll: getAll,
@@ -120,7 +135,7 @@ let pokemonRepository = (function () {
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails,
-    showDetails: showDetails
+    showDetails: showDetails,
   };
 })();
 
@@ -129,19 +144,3 @@ pokemonRepository.loadList().then(function() {
     pokemonRepository.addListItem(pokemon);
   });
 });
-/*
-pokemonRepository.add({ name: 'Pikachu', height: 0.4, types:['electric']});
-pokemonRepository.add({ name: 'Beedrill', height: 1, types:['bug']});
-console.log(pokemonRepository.getAll());
-pokemonRepository.getAll().forEach((pokemon) => {
-let pokemonList = document.querySelector('.pokemon-list');
-let listItem = document.createElement('li');
-let button = document.createElement('button');
-button.innerText = pokemon.name;
-button.classList.add('button-class');
-listItem.appendChild(button);
-pokemonList.appendChild(listItem);
-
-pokemonRepository.addListItem(pokemon);
-
-});*/
