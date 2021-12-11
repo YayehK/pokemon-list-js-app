@@ -86,7 +86,7 @@ let pokemonRepository = (function () {
 
     let closeButtonElement = document.createElement('button');
     closeButtonElement.classList.add('modal-close');
-    closeButtonElement.innerText = 'Close';
+    closeButtonElement.innerText = 'x'; //how to use (&times;) instead of  the leter 'X'??
     closeButtonElement.addEventListener('click', hideModal);
 
     let titleElement = document.createElement('h1');
