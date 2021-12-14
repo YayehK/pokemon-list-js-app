@@ -7,7 +7,7 @@ This project is to build a Pokédex application that displays a list of Pokémon
 
 ### How to get the project running
 
-Click on the name of the Pokemon you are interested in to view details on a modal!
+To view details on a modal, click on the name of the Pokemon you are interested in!
 
 ### Project dependencies
 
