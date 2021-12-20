@@ -3,14 +3,16 @@ allows the user to view details for each of them*/
 
 //The following code wraps the array(pokemonList) in an IIFE to avoid accidentally accessing the global state
 
+//IIFE starts here
+
 let pokemonRepository = (function () {
-  let modalContainer = document.querySelector('#modal-container');
+  let modalContainer = document.querySelector('#exampleModal');
   let pokemonList = [];
 
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   function add(item) {
-    if (typeof item === 'object' &&  "name" in item) {
+    if (typeof item === 'object' &&  'name' in item) {
       pokemonList.push(item);
     }else {
       console.log('incorrent Pokemon item');
@@ -25,17 +27,34 @@ let pokemonRepository = (function () {
     let pokemonList = document.querySelector('.pokemon-list');
     let listItem = document.createElement('li');
     let button = document.createElement('button');
+    let pokemonImg = document.createElement('img');
+
     button.innerText = pokemon.name;
-    button.classList.add('button-class');
+    button.classList.add('button');
+    button.classList.add('btn');
+    pokemonImg.classList.add('btn-img');
+  /*button.setAttribute('data-toggle','modal');
+    button.setAttribute('data-target','#exampleModal');*/
+    button.appendChild(pokemonImg);
     listItem.appendChild(button);
     pokemonList.appendChild(listItem);
 
     //adds event listener to the buttons
     button.addEventListener('click', function (){
-      showDetails(pokemon);
+      showDetails(pokemon, modalContainer);
+    });
+
+    let url = pokemon.detailsUrl;
+    return fetch(url).then(function(response){
+      return response.json();
+    }).then(function(details){
+      pokemon.image = details.sprites.front_default;
+      pokemonImg.setAttribute ('src', pokemon.image);
+    }).catch(function(e){
+      console.error(e);
     });
   }
-  // To load data from an external source
+  // loads data from an external source
   // This fetchs or gets the complete list of pokemon from the link provided!
 
   function loadList() {
@@ -62,82 +81,70 @@ let pokemonRepository = (function () {
       // adding the details to the item
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
-      item.types = details.types;
+      item.weight = details.weight;
+      /*item.types = details.types.type.name;
+      item.abilities = details.abilities.ability.name;*/
+
     }).catch(function (e) {
       console.error(e);
     });
   }
-  // once the details are loaded, this funtion views details for selected data
+  // once the details are loaded, this funtion shows details for selected data
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function(){
-      //  console.log(pokemon.name, pokemon.height, pokemon.img);
       showModal(pokemon);
     });
   }
 
   // adds modal to Pokemon app.
+  function showModal(pokemon){
+    let modalBody = $('.modal-body');
+    let modalTitle = $('.modal-title');
 
-  function showModal(pokemon) {
-    modalContainer.innerHTML = '';
-    modalContainer.classList.add('is-visible');
+    modalTitle.empty();
+    modalBody.empty();
 
-    let modal = document.createElement('div');
-    modal.classList.add('modal');
+    let nameElement = $('<h1 class="text-capitalize">' + pokemon.name + '</h1>');
+    let imageElement = $('<img class="modal-img" style="width:30%">');
+    imageElement.attr("src", pokemon.imageUrl);
 
-    let closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.innerText = 'x'; //how to use (&times;) instead of  the leter 'X'??
-    closeButtonElement.addEventListener('click', hideModal);
+    let heightElement = $('<p>' + 'Height : ' + pokemon.height + '</p>');
+    let weightElement = $('<p>' + 'Weight : ' + pokemon.weight + '</p>');
+    /*let typesElement = $('<p>' + 'Types : ' + pokemon.types + '</p>');
+    let abilitiesElement = $('<p>' + 'Abilities : ' + pokemon.abilities + '</p>');*/
 
-    let titleElement = document.createElement('h1');
-    titleElement.innerText = pokemon.name;
+    modalTitle.append(nameElement);
+    modalBody.append(imageElement);
+    modalBody.append(heightElement);
+    modalBody.append(weightElement);
+/*  modalBody.append(typesElement);
+    modalBody.append(abilitiesElement);*/
 
-    let contentElement = document.createElement('p');
-    contentElement.innerText = 'Height: ' + pokemon.height;
-
-    let imageElement = document.createElement('img');
-    imageElement.classList.add('img-class');
-    imageElement.src = pokemon.imageUrl;
-
-
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(contentElement);
-    modal.appendChild(imageElement);
-    modalContainer.appendChild(modal);
-
-    modalContainer.classList.add('is-visible');
-
-  }
-  // removes modal up on close, esk or click outside of modal
-  function hideModal() {
-    modalContainer.classList.remove('is-visible');
+    $('#exampleModal').modal();
   }
 
-// remoces modal with ESC keydown
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')){
-      hideModal();
-    }
+// adds search element to the page
+$(document).ready(function(){
+  $("#search-pokemon").on("input", function() {
+    var value = $(this).val().toLowerCase();
+    $(".btn").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
   });
+});
 
-// removes the modal when clicked outside modal
-  modalContainer.addEventListener('click', (e) => {
-    let target = e.target;
-    if (target === modalContainer){
-      hideModal();
-    }
-  });
-
-  return {
-    getAll: getAll,
-    add: add,
-    addListItem: addListItem,
-    loadList: loadList,
-    loadDetails: loadDetails,
-    showDetails: showDetails,
-  };
+return {
+  getAll: getAll,
+  add: add,
+  addListItem: addListItem,
+  loadList: loadList,
+  loadDetails: loadDetails,
+  showDetails: showDetails,
+  showModal: showModal
+};
 })();
+
+// IIFE ends here
 
 pokemonRepository.loadList().then(function() {
   pokemonRepository.getAll().forEach(function(pokemon){
