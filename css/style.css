@@ -1,207 +1,85 @@
-/* Colors used
-Text Color - Dark grey: #2b2b2b,
-background color- Ghost white: #f8f8ff
-Primary Color- Viridian: #357b70;
-Secondary Color- Orange: #e0b354; */
 
-/*:root {
-  --primary-color: #357b70;
-  --secondary-color: #05676e;
-  --dark-grey: #2b2b2b;
-  --background-color: #f8f8ff;
-  --shade-pink: #b76386;
-  --light-grey: #e7e7e7;
-  --padding: 10px;
-}*/
-
-* {
-  box-sizing: border-box;
+.collapse {
+flex:0 1 200px;
+}
+.navbar {
+justify-content:space-between;
 }
 
-body {
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.6;
-  background-color:#f8f8ff;
-  color:inherit;
-  padding: 10px;
-}
-
-h1 {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-a {
-  color: #357b70;
-  background-color: inherit;
-}
-a:hover, a:focus{
-  text-decoration: none;
-}
-
-.page-header {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  width: 100%;
-  border-bottom: 1px solid #e7e7e7;
-}
-
-@media all and (max-width: 500px) {
-  .page-header__item{
-    flex-direction: column;
-  }
-}
-
-.page-header__item {
-  flex:0 1 200px;
-}
-
-.page-header__item:last-child {
-  flex-grow: 1;
-  text-align: right;
-}
-
-@media all and (max-width: 500px) {
-  .page-header__item:last-child {
-    text-align: center;
-    flex-direction: column;
-  }
-}
-.navigation-list {
-  list-style-type: none;
-}
-
-.navigation-list li{
-  display: inline-block;
-  margin-left: 10px;
-}
-
-p {
+#intro {
   font-family:monospace;
-  text-align: justify;
+  text-align: center;
 }
 
-/*.pokemon-display {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-content: center;
-}*/
 #pokedex-title{
   text-align: center;
 }
 
+.search {
+  text-align: right;
+  margin-right: 40px;
+}
+#search-pokemon {
+  border: 1px solid lightgrey;
+}
 .pokemon-list {
-  border: 1px solid grey;
-  max-width: 500px;
-  height: 600px;
-  overflow: scroll;
   list-style-type: none;
-  margin: 0 auto;
-  background-color: inherit;
-  color: inherit;
-  text-align: center;
-  padding: 10px;
 }
 
-.pokemon-list .button-class {
-  width: 100%;
+.pokemon-list li {
+  position: relative;
+}
+.modal-content {
+  border: 2px solid;
+  border-color: #709c3f;
+  background-color: #b3d48e;
+  text-align: center;
+}
+
+.modal-content p {
+  border: 1px solid green;
+  width: 100px;
+  text-align: center;
+  color: #2b2b2b;
+  border-radius: 10px;
+}
+.btn {
   border: 1px solid green;
   background-color: #e7e7e7;
-  color: inherit;
-  padding: 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+  margin: 10px;
   transition-duration: 0.4s;
 }
 
-.button-class::first-line {
+.btn::first-line {
   text-transform: uppercase;
 }
 
-.button-class:hover{
+.btn:hover{
   cursor: pointer;
   opacity: 0.8;
   color: inherit;
   background-color: lightgreen;
-  border: 3px solid #2b2b2b;
+  /*border: 3px solid #2b2b2b;*/
 }
-
-
-#modal-container {
-  position: fixed;
-  padding: 20px;
-  box-sizing: border-box;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  color: inherit;
-
-  /* to show it above other content */
-  z-index: 999;
-
-  /* to allow scrolling if the screen is not high enough*/
-  overflow: auto;
-
-  /* this is used to center the modal */
-  display: none;
-  text-align: center;
-}
-
-#modal-container.is-visible{
-  display: block;
-  /*background-color: #2b2b2b;*/
-  /*opacity: 0.8;*/
-  /*color: inherit;*/
-}
-
-.modal {
-  margin: auto;
-  display: inline-block;
-  box-sizing: border-box;
-  background-color: #f8f8ff;
-  color: black;
-  padding: 15px;
-  width: 70%;
-  max-width: 320px;
-  text-align: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
-}
-
-
-.modal h1::first-line {
-  text-transform: uppercase;
-}
-
-.modal p, h1 {
-  text-align: justify;
-}
-
-.modal-close {
-  float: right;
-  -webkit-appearance: none;
-  border: 0;
+.btn-secondary {
   background-color: inherit;
-  color: #aaaaaa;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 24px;
+  color:inherit;
 }
-.modal-close:hover{
-  color: #000;
-  background-color: inherit;
-  cursor: pointer;
-  font-weight: bolder;
+.btn-img {
+  display:block;
+  width: 125px;
+  height: 125px;
+}
+
+@media (max-width: 1024px) {
+  body{
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal.modal-content {
+    width: 90%;
+    max-width: 90%;
+  }
 }
