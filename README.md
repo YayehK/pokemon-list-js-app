@@ -7,12 +7,12 @@ This project is to build a Pokédex application that displays a list of Pokémon
 
 ### How to get the project running
 
-To view details on a modal, click on the name of the Pokemon you are interested in!
+To view details on a modal, click on the Pokemon you are interested in!
 
 ### Project dependencies
 
 - ES6 (ECMAScript 2015)
--
+- Bootstrap
 
 ### API used
 
@@ -21,7 +21,7 @@ To view details on a modal, click on the name of the Pokemon you are interested 
 
 ### Screenshot
 
-![pokedex-app-screenshot](https://user-images.githubusercontent.com/85830416/145679980-851615e6-97e2-4327-9a48-bc778229a847.png)
+![pokedex-app-screenshot-2](https://user-images.githubusercontent.com/85830416/146800940-8f852f47-8ec8-489c-babf-cb4c81d9e318.png)
 
 <!--![yayeh-kebte-portfolio](https://user-images.githubusercontent.com/85830416/145679755-46ad638a-89d3-411b-9b3a-c58d82cb4192.png)-->
 
