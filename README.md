@@ -23,4 +23,4 @@ To view details on a modal, click the Pokemon button you are interested in!
 ![pokedex-app-screenshot-2](https://user-images.githubusercontent.com/85830416/147135696-e0ee1f60-af8a-454d-a13b-596eddccc880.png)
 
 ### Links
- ![Check out the app on my github-pages](https://yayehk.github.io/pokemon-list-js-app/)
+ [Check out the app on my github-pages](https://yayehk.github.io/pokemon-list-js-app/)
