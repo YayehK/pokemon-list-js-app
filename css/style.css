@@ -17,13 +17,18 @@ justify-content:space-between;
 
 .search {
   text-align: right;
-  margin-right: 40px;
+  margin-right: 5%;
+  margin-bottom: 10px;
 }
 #search-pokemon {
   border: 1px solid lightgrey;
+  border-radius: 10px;
+  text-align: center;
 }
 .pokemon-list {
   list-style-type: none;
+/*  margin-left: 5%;
+  margin-right: 5%;*/
 }
 
 .pokemon-list li {
@@ -77,9 +82,21 @@ justify-content:space-between;
   }
 }
 
-@media (max-width: 600px) {
-  .modal.modal-content {
-    width: 90%;
+@media (max-width: 500px) {
+  .modal .modal-content {
     max-width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .search {
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .pokemon-list, li {
+    margin: 0 auto;
   }
 }
